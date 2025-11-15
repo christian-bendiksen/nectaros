@@ -15,7 +15,7 @@ modules:
         - avengemedia/dms-git
     install:
       packages:
-        - gdm
+        # - gdm
         - dms
         - mangowc
         - scenefx
@@ -28,7 +28,7 @@ modules:
 
     remove:
       packages:
-        - malcontent
+        - malcontent-control
         - gnome-software
         - gnome-disk-utility
         - gnome-system-monitor

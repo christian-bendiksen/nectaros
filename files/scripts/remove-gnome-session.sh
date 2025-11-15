@@ -25,6 +25,10 @@ done
 DESKTOP_FILES=(
     org.gnome.Settings.desktop
     gnome-control-center.desktop
+    org.gnome.Ptyxis.desktop
+    org.freedesktop.MalcontentControl.desktop
+    org.gnome.ColorProfileViewer.desktop
+    org.gnome.Yelp.desktop
 )
 
 for f in "${DESKTOP_FILES[@]}"; do
