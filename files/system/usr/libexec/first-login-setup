@@ -1,0 +1,29 @@
+#!/usr/bin/bash
+# ------------------------------------------------------------
+# MangoWC – first-login configuration
+# Runs once per user, in the user session, no password prompts.
+# ------------------------------------------------------------
+
+set -euo pipefail
+
+# Flatpak
+flatpak override --user --filesystem=xdg-config/gtk-3.0:ro
+flatpak override --user --filesystem=xdg-config/gtkrc-2.0:ro
+flatpak override --user --filesystem=xdg-config/gtk-4.0:ro
+flatpak override --user --filesystem=xdg-config/gtkrc:ro
+
+flatpak mask --user org.gtk.Gtk3theme.adw-gtk3
+flatpak mask --user org.gtk.Gtk3theme.adw-gtk3-dark
+
+# GTK
+if command -v gsettings >/dev/null 2>&1; then
+    gsettings set org.gnome.desktop.interface gtk-theme        'adw-gtk3-dark'
+    gsettings set org.gnome.desktop.interface color-scheme     'prefer-dark'
+fi
+
+# Set wallpaper
+dms ipc wallpaper set /usr/share/backgrounds/default.png
+
+# Done
+mkdir -p "${HOME}/.config"
+touch "${HOME}/.config/.first-login-done"

@@ -1,0 +1,76 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+
+name: Nectar
+description: "Nectar OS"
+
+base-image: quay.io/fedora/fedora-silverblue
+image-version: 43
+
+modules:
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - dennemann/MangoWC
+        - avengemedia/dms-git
+    install:
+      packages:
+        - dms
+        - mangowc
+        - scenefx
+        - wlroots
+        - seatd
+        - grim
+        - ptyxis
+        - adw-gtk3-theme
+        - helix
+
+    remove:
+      packages:
+        - gnome-software
+        - gnome-disk-utility
+        - gnome-system-monitor
+        - gnome-tour
+        - gnome-user-docs
+        - gnome-extensions-app
+        - gnome-control-center
+        - gnome-color-manager
+        - rygel
+        - ptyxis
+
+  - type: files
+    files:
+      - source: system
+        destination: /
+
+  - type: systemd
+    system:
+      enabled:
+        - seatd.service
+
+  - type: default-flatpaks
+    configurations:
+      - scope: system
+        repo:
+          title: Flathub
+        install:
+          - io.github.kolunmi.Bazaar
+          - app.devsuite.Ptyxis
+          - org.mozilla.firefox
+          - org.gtk.Gtk3theme.adw-gtk3
+          - org.gtk.Gtk3theme.adw-gtk3-dark
+
+  - type: script
+    scripts:
+      - remove-gnome-session.sh
+
+  - type: os-release
+    properties:
+      ID: Nectar
+      NAME: Nectar
+      PRETTY_NAME: "Nectar OS"
+      HOME_URL: "https://github.com/christian-bendiksen/nectaros"
+      BUG_REPORT_URL: "https://github.com/christian-bendiksen/nectaros/issues"
+      DEFAULT_HOSTNAME: nectar
+  - type: initramfs
+  - type: signing

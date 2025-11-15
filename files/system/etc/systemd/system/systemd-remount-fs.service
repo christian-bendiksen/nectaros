@@ -1,0 +1,8 @@
+[Unit]
+Description=Disabled remount service (handled by ostree/bootc)
+DefaultDependencies=no
+ConditionPathExists=!/run/ostree-booted
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/true

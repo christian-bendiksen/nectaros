@@ -1,0 +1,15 @@
+[Unit]
+Description=MangoWC – first-login configuration (skel + flatpak)
+After=graphical-session.target
+# Run only if the marker file does **not** exist
+ConditionPathExists=!%h/.config/.first-login-done
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/first-login-setup
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
