@@ -15,6 +15,7 @@ modules:
         - avengemedia/dms-git
     install:
       packages:
+        - gdm
         - dms
         - mangowc
         - scenefx
