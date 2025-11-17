@@ -25,6 +25,8 @@ modules:
         - ptyxis
         - adw-gtk3-theme
         - helix
+        - uutils-coreutils
+        - rust-rs
 
     remove:
       packages:

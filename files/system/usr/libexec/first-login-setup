@@ -21,9 +21,6 @@ if command -v gsettings >/dev/null 2>&1; then
     gsettings set org.gnome.desktop.interface color-scheme     'prefer-dark'
 fi
 
-# Set wallpaper
-dms ipc wallpaper set /usr/share/backgrounds/default.png
-
 # Done
 mkdir -p "${HOME}/.config"
 touch "${HOME}/.config/.first-login-done"
