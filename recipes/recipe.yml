@@ -9,13 +9,18 @@ image-version: 43
 modules:
   - type: dnf
     repos:
-      cleanup: true
+      cleanup: false
       copr:
         - dennemann/MangoWC
         - avengemedia/dms-git
+        - bieszczaders/kernel-cachyos
     install:
       packages:
-        # - gdm
+        - kernel
+        - kernel-core
+        - kernel-modules
+        - kernel-modules-core
+        - kernel-modules-extra
         - dms
         - mangowc
         - scenefx
