@@ -11,7 +11,11 @@ modules:
     replace:
       - from-repo: bieszczaders/kernel-cachyos
         packages:
-          - kernel-cachyos
+          - kernel
+          - kernel-core
+          - kernel-modules
+          - kernel-modules-core
+          - kernel-modules-extra
   
   - type: dnf
     repos:
