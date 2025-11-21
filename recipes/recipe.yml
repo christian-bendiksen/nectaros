@@ -10,7 +10,7 @@ modules:
   - type: dnf
     install:
       packages:
-        - repos: copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos
+        - repo: copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos
           packages:
             - kernel
             - kernel-core
@@ -24,7 +24,7 @@ modules:
       copr:
         - dennemann/MangoWC
         - avengemedia/dms-git
-        - bieszczaders/kernel-cachyos
+        # - bieszczaders/kernel-cachyos
     install:
       packages:
         - dms
