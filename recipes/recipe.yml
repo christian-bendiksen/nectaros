@@ -7,23 +7,22 @@ base-image: quay.io/fedora/fedora-silverblue
 image-version: 43
 
 modules:
-  # - type: dnf
-  #   install:
-  #     packages:
-  #       - repo: copr:bieszczaders:kernel-cachyos
-  #         packages:
-  #           - kernel-cachyos
-
+  - type: rpm-ostree
+    replace:
+      - from-repo: bieszczaders/kernel-cachyos
+        packages:
+          - kernel-cachyos
+  
   - type: dnf
     repos:
       cleanup: false
       copr:
         - dennemann/MangoWC
         - avengemedia/dms-git
-        - bieszczaders/kernel-cachyos
+        # - bieszczaders/kernel-cachyos
     install:
       packages:
-        - kernel-cachyos
+        # - kernel-cachyos
         - dms
         - mangowc
         - scenefx
