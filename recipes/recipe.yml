@@ -8,14 +8,10 @@ image-version: 43
 
 modules:
   - type: rpm-ostree
-    replace:
-      - from-repo: https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos/repo/fedora-%OS-VERSION%/bieszczaders-kernel-cachyos-fedora-%OS-VERSION%.repo
-        packages:
-          - kernel
-          - kernel-core
-          - kernel-modules
-          - kernel-modules-core
-          - kernel-modules-extra
+    repos:
+      - https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos/repo/fedora-%OS-VERSION%/bieszczaders-kernel-cachyos-fedora-%OS-VERSION%.repo
+    install:
+      - kernel-cachyos
   
   - type: dnf
     repos:
