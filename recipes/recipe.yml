@@ -13,13 +13,10 @@ modules:
       copr:
         - dennemann/MangoWC
         - avengemedia/dms-git
-        - yalter/niri-git 
     install:
       packages:
-        # - kernel-cachyos
         - dms
         - mangowc
-        - niri
         - scenefx
         - wlroots
         - seatd
