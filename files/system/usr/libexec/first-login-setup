@@ -1,9 +1,4 @@
 #!/usr/bin/bash
-# ------------------------------------------------------------
-# MangoWC – first-login configuration
-# Runs once per user, in the user session, no password prompts.
-# ------------------------------------------------------------
-
 set -euo pipefail
 
 # Flatpak
