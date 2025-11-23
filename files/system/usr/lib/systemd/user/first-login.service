@@ -1,5 +1,5 @@
 [Unit]
-Description=MangoWC – first-login configuration (skel + flatpak)
+Description=First-login configuration
 After=graphical-session.target
 # Run only if the marker file does **not** exist
 ConditionPathExists=!%h/.config/.first-login-done
