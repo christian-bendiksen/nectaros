@@ -10,6 +10,7 @@ if ! flatpak remote-list --system | grep -q flathub; then
         https://dl.flathub.org/repo/flathub.flatpakrepo
 fi
 
+notify-send "Setup" "System flatpaks are being installed"
 flatpak install -y \
     io.github.kolunmi.Bazaar \
     app.devsuite.Ptyxis \
