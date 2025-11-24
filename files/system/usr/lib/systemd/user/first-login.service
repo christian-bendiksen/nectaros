@@ -1,9 +1,8 @@
 [Unit]
 Description=First-login configuration
 
-# Make sure the graphical session, session bus, and GNOME daemons are up.
-After=gnome-session-initialized.target
-Requires=gnome-session-initialized.target
+After=graphical-session.target
+Wants=graphical-session.target
 
 # Only run on first login
 ConditionPathExists=!%h/.config/.first-login-done
@@ -12,12 +11,8 @@ ConditionPathExists=!%h/.config/.first-login-done
 Type=oneshot
 ExecStart=/usr/libexec/first-login-setup
 RemainAfterExit=yes
-
-# Ensure this points at the user's real session bus
-Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
-
 StandardOutput=journal
 StandardError=journal
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
