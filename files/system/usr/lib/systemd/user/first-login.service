@@ -1,13 +1,21 @@
 [Unit]
 Description=First-login configuration
-After=graphical-session.target
-# Run only if the marker file does **not** exist
+
+# Make sure the graphical session, session bus, and GNOME daemons are up.
+After=gnome-session-initialized.target
+Requires=gnome-session-initialized.target
+
+# Only run on first login
 ConditionPathExists=!%h/.config/.first-login-done
 
 [Service]
 Type=oneshot
 ExecStart=/usr/libexec/first-login-setup
 RemainAfterExit=yes
+
+# Ensure this points at the user's real session bus
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+
 StandardOutput=journal
 StandardError=journal
 

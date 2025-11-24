@@ -1,16 +1,42 @@
 #!/usr/bin/bash
 set -euo pipefail
 
-# Flatpak
-echo "Installing Flatpak packages..."
+log() {
+    echo "[first-login] $*"
+}
 
-# Add Flathub (system scope) if it doesn't already exist
+# Check if services are up and running
+wait_for_dbus_service() {
+    local service="$1"
+    for i in {1..40}; do
+        if busctl --user --list | grep -q "$service"; then
+            log "DBus service available: $service"
+            return 0
+        fi
+        sleep 0.25
+    done
+    log "WARNING: Timed out waiting for $service"
+    return 1
+}
+
+log "Waiting for GNOME session services..."
+wait_for_dbus_service org.freedesktop.Notifications || true
+wait_for_dbus_service org.gnome.SettingsDaemon      || true
+
+# Configure flatpak
+log "Configuring Flatpak..."
+
 if ! flatpak remote-list --user | grep -q flathub; then
+    log "Adding Flathub remote…"
     flatpak remote-add --if-not-exists --user flathub \
         https://dl.flathub.org/repo/flathub.flatpakrepo
 fi
 
-notify-send "Setup" "System flatpaks are being installed"
+if command -v notify-send >/dev/null 2>&1; then
+    notify-send "First Login" "Setting up default flatpak applications…" || true
+fi
+
+log "Installing Flatpak packages…"
 flatpak install -y --user \
     io.github.kolunmi.Bazaar \
     app.devsuite.Ptyxis \
@@ -19,9 +45,11 @@ flatpak install -y --user \
     org.gtk.Gtk3theme.adw-gtk3-dark \
     com.saivert.pwvucontrol
 
-echo "All packages installed successfully!"
+log "Flatpak install complete."
 
-echo "Setting flatpak theme permissions"
+# Flatpak permissions
+log "Applying Flatpak theme overrides…"
+
 flatpak override --user --filesystem=xdg-config/gtk-3.0:ro
 flatpak override --user --filesystem=xdg-config/gtkrc-2.0:ro
 flatpak override --user --filesystem=xdg-config/gtk-4.0:ro
@@ -30,12 +58,18 @@ flatpak override --user --filesystem=xdg-config/gtkrc:ro
 flatpak mask --user org.gtk.Gtk3theme.adw-gtk3
 flatpak mask --user org.gtk.Gtk3theme.adw-gtk3-dark
 
-# GTK
+# GTK Settings
+log "Applying GNOME appearance settings…"
+
 if command -v gsettings >/dev/null 2>&1; then
-    gsettings set org.gnome.desktop.interface gtk-theme        'adw-gtk3-dark'
-    gsettings set org.gnome.desktop.interface color-scheme     'prefer-dark'
+    gsettings set org.gnome.desktop.interface gtk-theme    'adw-gtk3-dark' || true
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' || true
 fi
 
-# Done
+# Finalization
+log "Creating first-login completion marker…"
+
 mkdir -p "${HOME}/.config"
 touch "${HOME}/.config/.first-login-done"
+
+log "First login setup complete."
