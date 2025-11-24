@@ -16,7 +16,8 @@ flatpak install -y --user \
     app.devsuite.Ptyxis \
     org.mozilla.firefox \
     org.gtk.Gtk3theme.adw-gtk3 \
-    org.gtk.Gtk3theme.adw-gtk3-dark
+    org.gtk.Gtk3theme.adw-gtk3-dark \
+    com.saivert.pwvucontrol
 
 echo "All packages installed successfully!"
 
