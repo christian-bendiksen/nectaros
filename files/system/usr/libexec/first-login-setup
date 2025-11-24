@@ -5,13 +5,13 @@ set -euo pipefail
 echo "Installing Flatpak packages..."
 
 # Add Flathub (system scope) if it doesn't already exist
-if ! flatpak remote-list --system | grep -q flathub; then
-    flatpak remote-add --if-not-exists --system flathub \
+if ! flatpak remote-list --user | grep -q flathub; then
+    flatpak remote-add --if-not-exists --user flathub \
         https://dl.flathub.org/repo/flathub.flatpakrepo
 fi
 
 notify-send "Setup" "System flatpaks are being installed"
-flatpak install -y \
+flatpak install -y --user \
     io.github.kolunmi.Bazaar \
     app.devsuite.Ptyxis \
     org.mozilla.firefox \
