@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 
-name: Nectar
-description: "Nectar OS"
+name: nectar
+description: "Keep sipping that nectar, king. The bees are proud of you."
 
 base-image: quay.io/fedora/fedora-silverblue
 image-version: 43
@@ -48,17 +48,18 @@ modules:
       enabled:
         - seatd.service
 
-  # - type: default-flatpaks
-  #   configurations:
-  #     - scope: system
-  #       repo:
-  #         title: Flathub
-  #       install:
-  #         - io.github.kolunmi.Bazaar
-  #         - app.devsuite.Ptyxis
-  #         - org.mozilla.firefox
-  #         - org.gtk.Gtk3theme.adw-gtk3
-  #         - org.gtk.Gtk3theme.adw-gtk3-dark
+  - type: default-flatpaks
+    configurations:
+      - notify: false
+        repo:
+          title: Flathub
+        install:
+          - io.github.kolunmi.Bazaar
+          - app.devsuite.Ptyxis
+          - org.mozilla.firefox
+          - com.saivert.pwvucontrol
+          - org.gtk.Gtk3theme.adw-gtk3
+          - org.gtk.Gtk3theme.adw-gtk3-dark
 
   - type: script
     scripts:
@@ -66,9 +67,9 @@ modules:
 
   - type: os-release
     properties:
-      ID: Nectar
-      NAME: Nectar
-      PRETTY_NAME: "Nectar OS"
+      ID: nectar
+      NAME: nectar
+      PRETTY_NAME: "nectar"
       HOME_URL: "https://github.com/christian-bendiksen/nectaros"
       BUG_REPORT_URL: "https://github.com/christian-bendiksen/nectaros/issues"
       DEFAULT_HOSTNAME: nectar

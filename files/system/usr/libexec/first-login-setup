@@ -25,28 +25,30 @@ wait_for_dbus_service org.gnome.SettingsDaemon      || true
 
 # Configure flatpak
 # TODO: ensure a internet connection is up.
-log "Configuring Flatpak..."
+# log "Configuring Flatpak..."
 
-if ! flatpak remote-list --user | grep -q flathub; then
-    log "Adding Flathub remote…"
-    flatpak remote-add --if-not-exists --user flathub \
-        https://dl.flathub.org/repo/flathub.flatpakrepo
-fi
+# if ! flatpak remote-list --user | grep -q flathub; then
+#     log "Adding Flathub remote…"
+#     flatpak remote-add --if-not-exists --user flathub \
+#         https://dl.flathub.org/repo/flathub.flatpakrepo
+# fi
 
-if command -v notify-send >/dev/null 2>&1; then
-    notify-send "First Login" "Setting up default flatpak applications…" || true
-fi
+# if command -v notify-send >/dev/null 2>&1; then
+#     notify-send "First Login" "Setting up default flatpak applications…" || true
+# fi
 
-log "Installing Flatpak packages…"
-flatpak install -y --user \
-    io.github.kolunmi.Bazaar \
-    app.devsuite.Ptyxis \
-    org.mozilla.firefox \
-    org.gtk.Gtk3theme.adw-gtk3 \
-    org.gtk.Gtk3theme.adw-gtk3-dark \
-    com.saivert.pwvucontrol
+# log "Installing Flatpak packages…"
+# flatpak install -y --user \
+#     io.github.kolunmi.Bazaar \
+#     app.devsuite.Ptyxis \
+#     org.mozilla.firefox \
+#     org.gtk.Gtk3theme.adw-gtk3 \
+#     org.gtk.Gtk3theme.adw-gtk3-dark \
+#     com.saivert.pwvucontrol
 
-log "Flatpak install complete."
+# log "Flatpak install complete."
+# if  command -v notify-send >/dev/null 2>&1; then
+#     notify-send "First login" "Flatpak install complete. Please relog or restart"
 
 # Flatpak permissions
 log "Applying Flatpak theme overrides…"
