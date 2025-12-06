@@ -1,7 +1,11 @@
-@define-color accent #afa193;
-@define-color fg #f6f1ea;
-@define-color bg #101010;
-@define-color bg-alt #252525;
+/* @define-color accent #afa193; */
+/* @define-color fg #f6f1ea; */
+/* @define-color bg #101010; */
+/* @define-color bg-alt #252525; */
+@define-color accent #ee5396;         /* match */
+@define-color fg #ffffff;             /* text */
+@define-color bg #161616;             /* background */
+@define-color bg-alt #262626;         /* selection */
 
 * {
     font-size: 14px;
