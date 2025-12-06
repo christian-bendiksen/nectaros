@@ -12,6 +12,7 @@ modules:
       cleanup: false
       copr:
         - dennemann/MangoWC
+        - dennemann/AWWW
     install:
       packages:
         - mangowc
@@ -23,6 +24,8 @@ modules:
         - waybar
         - distrobox
         - fuzzel
+        - awww
+        - xfce-polkit
 
     remove:
       packages:

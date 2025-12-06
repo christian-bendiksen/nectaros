@@ -42,6 +42,20 @@ if command -v gsettings >/dev/null 2>&1; then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' || true
 fi
 
+# Set wallpaper
+if command -v awww-daemon >/dev/null 2>&1 && command -v awww >/dev/null 2>&1; then
+    log "Starting awww-daemon…"
+    awww-daemon &
+
+    sleep 0.3
+
+    log "Setting wallpaper with awww…"
+    awww img /usr/share/backgrounds/default2.jpg || \
+        log "WARNING: awww failed to set wallpaper"
+else
+    log "awww not found, skipping wallpaper setup"
+fi
+
 # Finalization
 log "Creating first-login completion marker…"
 
