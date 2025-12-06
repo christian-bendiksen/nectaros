@@ -8,5 +8,5 @@ dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 # Permission authentication
 /usr/libexec/xfce-polkit &
 
-# dms
-dms run &
+# waybar
+waybar &
