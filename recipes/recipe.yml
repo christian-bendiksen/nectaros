@@ -14,7 +14,6 @@ modules:
         - dennemann/MangoWC
     install:
       packages:
-        - dms
         - mangowc
         - scenefx
         - wlroots
@@ -22,6 +21,7 @@ modules:
         - helix
         - kitty
         - waybar
+        - distrobox
 
     remove:
       packages:
