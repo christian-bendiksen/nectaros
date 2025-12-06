@@ -1,12 +1,6 @@
 #!/usr/bin/bash
 set -euo pipefail
 
-# If not in terminal, open one
-if [[ -z "${FIRST_LOGIN_DISPLAY:-}" ]]; then
-    export FIRST_LOGIN_DISPLAY=1
-    exec kitty -- bash -c "$0; echo; echo 'Done - Press enter'; read"
-fi
-
 log() {
     echo "[first-login] $*"
 }
@@ -29,7 +23,7 @@ log "Waiting for GNOME session services..."
 wait_for_dbus_service org.freedesktop.Notifications || true
 wait_for_dbus_service org.gnome.SettingsDaemon      || true
 
-# Flatpak permissions
+# GTK flatpak theme override permissions
 log "Applying Flatpak theme overrides…"
 
 flatpak override --user --filesystem=xdg-config/gtk-3.0:ro
