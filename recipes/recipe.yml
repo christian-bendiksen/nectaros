@@ -12,18 +12,16 @@ modules:
       cleanup: false
       copr:
         - dennemann/MangoWC
-        - avengemedia/dms-git
     install:
       packages:
         - dms
         - mangowc
         - scenefx
         - wlroots
-        - seatd
-        - grim
-        - ptyxis
         - adw-gtk3-theme
         - helix
+        - kitty
+        - waybar
 
     remove:
       packages:
@@ -43,20 +41,12 @@ modules:
       - source: system
         destination: /
 
-  - type: systemd
-    system:
-      enabled:
-        - seatd.service
-
   - type: default-flatpaks
     configurations:
       - notify: false
         repo:
           title: Flathub
         install:
-          - io.github.kolunmi.Bazaar
-          - app.devsuite.Ptyxis
-          - org.mozilla.firefox
           - com.saivert.pwvucontrol
           - org.gtk.Gtk3theme.adw-gtk3
           - org.gtk.Gtk3theme.adw-gtk3-dark
