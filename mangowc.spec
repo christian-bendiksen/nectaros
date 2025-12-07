@@ -1,14 +1,14 @@
 %global forgeurl https://github.com/DreamMaoMao/mangowc
-%global version 0.10.5
 
 Name:           mangowc
-Version:        %{version}
-Release:        1%{?dist}
+Version:        0.0.0
+Release:        1.gitHEAD%{?dist}
 Summary:        Lightweight Wayland compositor with smooth animation
 
 License:        GPL-3.0-or-later
 URL:            %{forgeurl}
-Source0:        %{forgeurl}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+Source0:        %{forgeurl}/archive/HEAD/%{name}-HEAD.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -30,10 +30,11 @@ Requires:       scenefx
 
 %description
 MangoWC is a lightweight Wayland compositor based on wlroots and SceneFX.
-It provides smooth animations, multiple layouts, and modern input support.
 
 %prep
-%autosetup -n %{name}-%{version}
+# Deterministic extract dir for Copr
+%setup -T -c -n %{name}-src
+tar -xf %{SOURCE0} --strip-components=1
 
 %build
 %meson -Dxwayland=enabled
@@ -42,16 +43,17 @@ It provides smooth animations, multiple layouts, and modern input support.
 %install
 %meson_install
 
-# Remove upstream-installed files we replace (if they exist)
+# Remove upstream-installed files we replace
 rm -f %{buildroot}/etc/mango/config.conf || :
 rm -f %{buildroot}%{_datadir}/wayland-sessions/mango.desktop || :
 
-# Install corrected session desktop entry
-install -Dm0644 mango.desktop %{buildroot}%{_datadir}/wayland-sessions/mango.desktop
+# Install session file (in repo root, not in data/)
+install -Dm0644 mango.desktop \
+    %{buildroot}%{_datadir}/wayland-sessions/mango.desktop
 
-# Install default config in correct location
-mkdir -p %{buildroot}%{_sysconfdir}/mango
-install -Dm0644 config.conf %{buildroot}%{_sysconfdir}/mango/config.conf
+# Install config (also in repo root)
+install -Dm0644 config.conf \
+    %{buildroot}%{_sysconfdir}/mango/config.conf
 
 %files
 %license LICENSE*
@@ -62,5 +64,5 @@ install -Dm0644 config.conf %{buildroot}%{_sysconfdir}/mango/config.conf
 %config(noreplace) %{_sysconfdir}/mango/config.conf
 
 %changelog
-* Fri Nov 07 2025 Christian Bendiksen <christian@bendiksen.me> - 0.10.5-1
-- Build from stable upstream tag v0.10.5
+* Wed Nov 19 2025 Christian Bendiksen <christian@bendiksen.me> - 0.0.0-1.gitHEAD
+- Build from latest Git HEAD
