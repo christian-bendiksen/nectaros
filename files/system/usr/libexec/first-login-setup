@@ -5,12 +5,33 @@ log() {
     echo "[first-login] $*"
 }
 
+wait_for_dbus_service() {
+    local service="$1"
+
+    # If busctl isn't available, don't hard-fail the script
+    if ! command -v busctl >/dev/null 2>&1; then
+        log "busctl not found, skipping wait for $service"
+        return 0
+    fi
+
+    for i in {1..40}; do  # ~10 seconds total
+        if busctl --user --list | grep -Fq -- "$service"; then
+            log "DBus service available: $service"
+            return 0
+        fi
+        sleep 0.25
+    done
+
+    log "WARNING: Timed out waiting for $service"
+    return 1
+}
+
 # Set wallpaper
 if command -v awww-daemon >/dev/null 2>&1 && command -v awww >/dev/null 2>&1; then
     log "Starting awww-daemon…"
     awww-daemon &
 
-    sleep 0.3
+    sleep 0.15
 
     log "Setting wallpaper with awww…"
     awww img /usr/share/backgrounds/default.png || \
@@ -29,6 +50,10 @@ flatpak override --user --filesystem=xdg-config/gtkrc:ro
 
 flatpak mask --user org.gtk.Gtk3theme.adw-gtk3
 flatpak mask --user org.gtk.Gtk3theme.adw-gtk3-dark
+
+# Check for org.gnome.SettingsDaemon before running gsettings.
+log "Waiting for GNOME session services..."
+wait_for_dbus_service org.gnome.SettingsDaemon      || true
 
 # GTK Settings
 log "Applying GNOME appearance settings…"
