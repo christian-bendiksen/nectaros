@@ -1,0 +1,10 @@
+{
+  "policies": {
+    "Extensions": {
+      "Install": [
+        "https://addons.mozilla.org/firefox/downloads/file/4080549/wannabeoxocarbon-1.0.xpi"
+      ]
+    },
+    "DisableAppUpdate": false
+  }
+}
