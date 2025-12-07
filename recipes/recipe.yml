@@ -8,6 +8,7 @@ image-version: 43
 
 modules:
   - type: dnf
+    allow-erasing: true
     repos:
       cleanup: true
       copr:
@@ -35,7 +36,6 @@ modules:
 
     remove:
       packages:
-        - ffmpeg-free
         - malcontent-control
         - gnome-software
         - gnome-disk-utility
