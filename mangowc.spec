@@ -1,14 +1,14 @@
 %global forgeurl https://github.com/DreamMaoMao/mangowc
 
 Name:           mangowc
-Version:        0.0.0
-Release:        1.gitHEAD%{?dist}
+Version:        0.10.7
+Release:        1%{?dist}
 Summary:        Lightweight Wayland compositor with smooth animation
 
 License:        GPL-3.0-or-later
 URL:            %{forgeurl}
 
-Source0:        %{forgeurl}/archive/HEAD/%{name}-HEAD.tar.gz
+Source0:        %{forgeurl}/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -32,9 +32,7 @@ Requires:       scenefx
 MangoWC is a lightweight Wayland compositor based on wlroots and SceneFX.
 
 %prep
-# Deterministic extract dir for Copr
-%setup -T -c -n %{name}-src
-tar -xf %{SOURCE0} --strip-components=1
+%setup -q -n %{name}-%{version}
 
 %build
 %meson -Dxwayland=enabled
@@ -64,5 +62,5 @@ install -Dm0644 config.conf \
 %config(noreplace) %{_sysconfdir}/mango/config.conf
 
 %changelog
-* Wed Nov 19 2025 Christian Bendiksen <christian@bendiksen.me> - 0.0.0-1.gitHEAD
-- Build from latest Git HEAD
+* Sun dec 07 2025 Christian Bendiksen <christian@bendiksen.me> - 0.10.7-1
+- Build from release 0.10.7
