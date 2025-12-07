@@ -3,7 +3,7 @@
     "position": "top",
     "height": 30,
     "spacing": 0,
-    "modules-left": ["ext/workspaces","ext/mode"],
+    "modules-left": ["ext/workspaces","dwl/window"],
     "modules-center": ["custom/clock"],
     "modules-right": ["dwl/language", "pulseaudio", "battery", "backlight", "tray"],
 
