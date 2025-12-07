@@ -30,15 +30,12 @@ modules:
         # rpmfusion hardware and software codecs
         - ffmpeg
         - intel-media-driver
-        - gstreamer1-libav
-        - gstreamer1-plugins-bad-free
         - gstreamer1-plugins-bad-freeworld
-        - gstreamer1-plugins-base
-        - gstreamer1-plugins-good
         - gstreamer1-plugins-ugly
 
     remove:
       packages:
+        - ffmpeg-free
         - malcontent-control
         - gnome-software
         - gnome-disk-utility
