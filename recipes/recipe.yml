@@ -8,7 +8,6 @@ image-version: 43
 
 modules:
   - type: dnf
-    allow-erasing: true
     repos:
       cleanup: true
       copr:
@@ -16,6 +15,7 @@ modules:
         - dennemann/AWWW
       nonfree: rpmfusion
     install:
+      allow-erasing: true
       packages:
         - mangowc
         - scenefx
